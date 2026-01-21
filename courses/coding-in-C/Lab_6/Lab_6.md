@@ -14,7 +14,7 @@ The goal is to:
 
 No plotting is required; the focus is on **data processing and analysis**.
 
-## Section I
+## Section I 
 ### Requirements
 
 #### Data Structures
@@ -93,5 +93,8 @@ Start: 15.00 s End: 20.00 s Start: 30.00 s End: 40.00 s Start: 50.00 s End: 55.0
 - Implement the program logic into fitting function and call them from main
 - No dynamic memory allocation required
 
+## Section II
 
+Create in a separate source file a program to generate two txt-files which exactly correspond with the used `sensor1.txt` and `sensor2.txt` files of section I.
 
+Use the function `fprintf()` to write the generated data into the files.
