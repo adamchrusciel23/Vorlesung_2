@@ -1,15 +1,14 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
-int main(void){
-    srand(time(NULL)); //Initialiesierung
-    int zufall = rand() % 2; //gibt 0 oder 1 zurück (links/rechts) 
-    int particles[] = {0,0,0,1,0,1,0,1,0,0};
-    int* p_particles = particles;
-    int next_state_particles[10];
-    int* p_next_state_particles = next_state_particles;
+int main(void) {
+    int x = 10;
+    int *p = &x;
+    int **pp = &p;
 
-    while(1)
-    
+    // TODO: complete the output statements
+    printf("x = %d\n", x);
+    printf("x via p = %d\n", *p);
+    printf("x via pp = %d\n", **pp);
+
+    return 0;
 }
