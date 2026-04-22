@@ -1,4 +1,4 @@
-# Lab 5: Generic Programming in C++
+# Lab 5: Drone Test Bench & Data Diagnostics Toolkit
 
 This lab focuses on **generic programming in C++** using templates, STL containers, iterators, and STL algorithms.
 
@@ -12,7 +12,7 @@ You will practice the following concepts:
 - iterators
 - STL algorithms
 
-Generische Programmierung means writing code once and using it for many data types. In C++, this is mainly achieved through **templates**. The STL extends this idea with reusable containers, iterators, and algorithms.
+Core idea: **write algorithms once and reuse them for many types**.
 
 All the following sections of this lab are based on the following levels of dificulty:
 
@@ -24,13 +24,23 @@ All the following sections of this lab are based on the following levels of difi
 
 ---
 
-## 🟢 Section I: First Steps with Generic Functions
+In this lab, you will build parts of a **drone test bench software**.
 
-The goal of this section is to build intuition for **type-independent functions**.
+Modern drones continuously generate data such as:
+- sensor values (temperature, vibration, voltage)
+- system states (active / inactive)
+- configuration parameters
 
-### Task 1: Emergency Payload Switch
+Your task is to build a **generic data processing toolkit** that can handle different data types efficiently.
 
-A drone test bench can load payload values of different types during simulation.
+## Section I: First Steps with Generic Functions
+
+In this section, you implement **basic reusable tools** used in a drone test environment.
+For that, you provide various generic functions to process the corresponding data.
+
+### 🟢 Task 1: Emergency Payload Switch
+
+During testing, payload parameters must sometimes be swapped quickly (e.g. switching between calibration values).
 
 Write a **generic function** that swaps two values.
 
@@ -46,9 +56,10 @@ Write a **generic function** that swaps two values.
 
 ---
 
-### Task 2: Sensor Frame Printer
+### 🟢 Task 2: Sensor Frame Printer
 
-Write a **generic function** that prints all elements of an array.
+A drone continuously receives **sensor frames** (small arrays of values).
+Write a **generic function** that prints all elements of such a frame.
 
 #### Requirements
 
@@ -64,7 +75,7 @@ Write a **generic function** that prints all elements of an array.
 
 ---
 
-### Task 3: Weakest Signal Detector
+### 🟢 Task 3: Weakest Signal Detector
 
 Write a **generic function** that returns the smallest element in an array.
 
@@ -74,11 +85,10 @@ Write a **generic function** that returns the smallest element in an array.
   - `int`
   - `double`
 - Do not use STL algorithms
-- Use a loop
 
 ---
 
-### Task 4: Telemetry Tag Composer
+### 🟢 Task 4: Telemetry Tag Composer
 
 Write a **generic function with two type parameters** that outputs two values.
 
@@ -90,9 +100,7 @@ Write a **generic function with two type parameters** that outputs two values.
 
 ---
 
-## 🟢 Section II: Generic Buffers and Fixed Dimensions
-
-### Task 5: Fixed-Size Packet Buffer
+### 🟢 Task 5: Fixed-Size Packet Buffer
 
 Implement a **generic fixed-size buffer**.
 
