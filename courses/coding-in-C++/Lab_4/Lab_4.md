@@ -167,10 +167,9 @@ The implementation contains several errors related to dynamic polymorphism.
 
 👉 Your tasks:
 
-1. What is the program output?
-2. Why is the behavior incorrect?
-3. Find at least **4 errors**.
-4. Correct the code.
+1. What is the program output and why is it not correct?
+2. Find at least **4 errors**.
+3. Correct the code.
 
 ```C++
 #include <iostream>
