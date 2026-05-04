@@ -1,0 +1,28 @@
+[33me2c72ad[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31mupstream/main[m[33m, [m[1;31mupstream/HEAD[m[33m)[m HEAD@{0}: reset: moving to upstream/main
+[33m339f093[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: rebase (abort): returning to refs/heads/main
+[33m2be6baa[m HEAD@{2}: commit: change Code
+[33md8d7a90[m HEAD@{3}: rebase (pick): made palindrome
+[33mc9f4d12[m HEAD@{4}: rebase (pick): made Uebungsaufgabe
+[33m568ada2[m HEAD@{5}: rebase (pick): create solution lab2
+[33m937a016[m HEAD@{6}: rebase (pick): made extra functions
+[33m9a4138a[m HEAD@{7}: rebase (pick): create simple calculator
+[33me4b1681[m HEAD@{8}: rebase (continue): helloWorld in mySolution create
+[33m6d7e69a[m HEAD@{9}: pull upstream main (pick): add test.md an write random numbers
+[33m7e2b6ee[m HEAD@{10}: pull upstream main (pick): helloWorld.c hinzugefügt
+[33me2c72ad[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31mupstream/main[m[33m, [m[1;31mupstream/HEAD[m[33m)[m HEAD@{11}: pull upstream main (start): checkout e2c72ada4fce0a3f1bd9e259b21be4f4dd86f965
+[33m339f093[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{12}: rebase (abort): returning to refs/heads/main
+[33m1fa527e[m HEAD@{13}: pull upstream main (pick): add test.md an write random numbers
+[33m19a1b3b[m HEAD@{14}: pull upstream main (pick): helloWorld.c hinzugefügt
+[33me2c72ad[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31mupstream/main[m[33m, [m[1;31mupstream/HEAD[m[33m)[m HEAD@{15}: pull upstream main (start): checkout e2c72ada4fce0a3f1bd9e259b21be4f4dd86f965
+[33m339f093[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{16}: commit: game not ready
+[33mf596e33[m HEAD@{17}: commit: lab3 section 2 fertig
+[33m7d07b3c[m HEAD@{18}: commit: Fange lab3 an
+[33m28d0a15[m HEAD@{19}: pull upstream main --no-rebase: Merge made by the 'ort' strategy.
+[33m0dbcf11[m HEAD@{20}: commit: lab2
+[33m53024ee[m HEAD@{21}: pull --no-rebase upstream main: Merge made by the 'ort' strategy.
+[33m0b69f7a[m HEAD@{22}: commit: kb
+[33m9d9022f[m HEAD@{23}: commit: lab1
+[33m523cee3[m HEAD@{24}: commit: lab2
+[33m0b08290[m HEAD@{25}: merge upstream/main: Merge made by the 'ort' strategy.
+[33m5c0c353[m HEAD@{26}: checkout: moving from main to main
+[33m5c0c353[m HEAD@{27}: clone: from https://github.com/adamchrusciel23/Vorlesung_2
