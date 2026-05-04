@@ -38,8 +38,33 @@ class Vector2D{
         Vector2D operator+(const Vector2D &vector1) {
             return Vector2D((this->x + vector1.getX()), (this->y + vector1.getY()));
         }
+        
         void operator+=(const Vector2D &vector1) {
             this->x += vector1.getX();
             this->y += vector1.getY();
         }
+
+        Vector2D& operator*(double scalar) {
+            this->x *= scalar;
+            this->y *= scalar; 
+            return *this;
+        }
 };
+
+int main()
+{
+    // Part 2
+    Vector2D vec1(4, 5);
+    Vector2D vec2(1, 9);
+
+    // Part 3
+    Vector2D vec3 = vec1 + vec2;
+    vec3.print();
+    vec1 += vec2;
+    vec1 = vec1 * 5;
+
+    // Part 4
+    Vector2D vec4(1, 9);
+
+    return 0;
+}
