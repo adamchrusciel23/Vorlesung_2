@@ -1,167 +1,127 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-class Combustion;
-class Electric;
+#include "Product.hpp"
+#include "Combustion.hpp"
+#include "Electric.hpp"
+#include "IInspectionReport.hpp"
+#include "IInspectionReportCombustion.hpp"
+#include "IInspectionReportElectric.hpp"
 
-class IInspectionReport {
-public:
-    virtual ~IInspectionReport() {}
-    virtual bool checkWeight() = 0;
-    virtual bool checkTemperatur() = 0;
-    virtual bool checkVisualDefectStatus() = 0;
-};
+InspectionReportCombustion::InspectionReportCombustion(Combustion& c) : c(c) {}
+bool InspectionReportCombustion::checkWeight() {
+    if(c.getWeight() < 500 || c.getWeight() > 2000) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
-class InspectionReportCombustion : public IInspectionReport {
-    private:
-        Combustion& c;
-    
-    public:
-        InspectionReportCombustion(Combustion& c) : c(c) {}
-        bool checkWeight() override {
-            if(c.getWeight() < 500 || c.getWeight() > 2000) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
+bool InspectionReportCombustion::checkTemperatur() {
+    if(c.getTemperature() > 100 || c.getTemperature() < 0) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+bool InspectionReportCombustion::checkVisualDefectStatus() {
+    if(c.getVisualDefectStatus()){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
-        bool checkTemperatur() override {
-            if(c.getTemperature() > 100 || c.getTemperature() < 0) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
 
-        bool checkVisualDefectStatus() override {
-            if(c.getVisualDefectStatus()){
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-};
+InspectionReportElectric::InspectionReportElectric(Electric& c) : c(c){}
 
-class InspectionReportElectric : public IInspectionReport {
-    private:
-        Electric& c;
-    
-    public:
-        InspectionReportElectric(Electric& c) : c(c){}
-        bool checkWeight() override {
-            if(c.getWeight() < 500 || c.getWeight() > 2000) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
+bool InspectionReportElectric::checkWeight() {
+    if(c.getWeight() < 500 || c.getWeight() > 2000) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
-        bool checkTemperatur() override {
-            if(c.getTemperature() > 100 || c.getTemperature() < 0) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
+bool InspectionReportElectric::checkTemperatur() {
+    if(c.getTemperature() > 100 || c.getTemperature() < 0) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
-        bool checkVisualDefectStatus() override {
-            if(c.getVisualDefectStatus()){
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
+bool InspectionReportElectric::checkVisualDefectStatus() {
+    if(c.getVisualDefectStatus()){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
-        bool checkVoltage()  {
-            if(c.getVoltage() > 12 || c.getVoltage() < 0) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-};
+bool InspectionReportElectric::checkVoltage()  {
+    if(c.getVoltage() > 12 || c.getVoltage() < 0) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
-class Product {
-    protected:
-        int id;
-        std::string name;
-        int weight;
-        float temperature;
-        bool visual_defect_status;
+Product::Product(int id, std::string name, int weight, float temperature, bool visual_defect_status) : id(id), name(name), weight(weight), temperature(temperature), visual_defect_status(visual_defect_status) {}
+int Product::getId() const {
+    return id;
+}
 
-    public:
-        Product(int id, std::string name, int weight, float temperature, bool visual_defect_status) : id(id), name(name), weight(weight), temperature(temperature), visual_defect_status(visual_defect_status) {}
-        
-        virtual ~Product() {}
+Product::~Product() {}
 
-        int getId() const {
-            return id;
-        }
+std::string Product::getName() const {
+    return name;
+}
 
-        std::string getName() const {
-            return name;
-        }
+int Product::getWeight() const {
+    return weight;
+}
 
-        int getWeight() const {
-            return weight;
-        }
-        
-        float getTemperature() const {
-            return temperature;
-        }
+float Product::getTemperature() const {
+    return temperature;
+}
 
-        bool getVisualDefectStatus() const {
-            return visual_defect_status;
-        }
+bool Product::getVisualDefectStatus() const {
+    return visual_defect_status;
+}
 
-        virtual void printReport() = 0;
-};
+Combustion::Combustion(int id, int weight, float temperature, bool visual_defect_status)
+    : Product(id, "Combustion Engine", weight, temperature, visual_defect_status) {}
+void Combustion::printReport() {
+    InspectionReportCombustion report(*this);
+    std::cout   << "Product: " << name
+                << "Weight Check: " << report.checkWeight()
+                << "Temperature Check: " << report.checkTemperatur()
+                << "Visual Inspection: " << report.checkVisualDefectStatus() << std::endl;
+}
 
-class Combustion : public Product {
-    public:
-        Combustion(int id, std::string name, int weight, float temperature, bool visual_defect_status) : Product(id, name, weight, temperature, visual_defect_status) {
-            name = "Combustion Motor";
-        }
 
-        void printReport() override {
-            InspectionReportCombustion report(*this);
-            std::cout   << "Product: " << name
-                        << "Weight Check: " << report.checkWeight()
-                        << "Temperature Check: " << report.checkTemperatur()
-                        << "Visual Inspection: " << report.checkVisualDefectStatus() << std::endl;
-        }
-};
+Electric::Electric(int id, int weight, float temperature, bool visual_defect_status, float voltage) : Product(id, "Electric Engine", weight, temperature, visual_defect_status), voltage(voltage) {}
 
-class Electric : public Product {
-    private:
-        float voltage;
-    public:
-        Electric(int id, std::string name, int weight, float temperature, bool visual_defect_status, float voltage) : Product(id, name, weight, temperature, visual_defect_status), voltage(voltage) {
-            name = "Electric Engine";
-        }
+float Electric::getVoltage() const {
+    return voltage;
+}
 
-        float getVoltage() const {
-            return voltage;
-        }
-
-        void printReport() override {
-            InspectionReportElectric report(*this);
-            std::cout   << "Product: " << name
-                        << "Weight Check: " << report.checkWeight()
-                        << "Temperature Check: " << report.checkTemperatur()
-                        << "Visual Inspection: " << report.checkVisualDefectStatus()
-                        << "Voltage Check: " << report.checkVoltage() << std::endl;
-        }
-};
-
+void Electric::printReport() {
+    InspectionReportElectric report(*this);
+    std::cout   << "Product: " << name
+                << "Weight Check: " << report.checkWeight()
+                << "Temperature Check: " << report.checkTemperatur()
+                << "Visual Inspection: " << report.checkVisualDefectStatus()
+                << "Voltage Check: " << report.checkVoltage() << std::endl;
+}
 
 
 int main() {
@@ -170,11 +130,11 @@ int main() {
     Product* products[4];
 
     // Parameter: id, name (wird intern überschrieben), weight, temp, visual_defect, [voltage]
-    products[0] = new Combustion(101, "", 1200, 85.5f, false);
-    products[1] = new Combustion(102, "", 2500, 110.0f, true); // Sollte FAILen
+    products[0] = new Combustion(101, 1200, 85.5f, false);
+    products[1] = new Combustion(102, 2500, 110.0f, true); // Sollte FAILen
     
-    products[2] = new Electric(201, "", 800, 45.0f, false, 12.0f);
-    products[3] = new Electric(202, "", 600, 50.0f, false, 15.0f); // Voltage FAIL
+    products[2] = new Electric(201, 800, 45.0f, false, 12.0f);
+    products[3] = new Electric(202, 600, 50.0f, false, 15.0f); // Voltage FAIL
 
     std::cout << "--- QUALITY CONTROL PIPELINE START ---" << std::endl << std::endl;
 
