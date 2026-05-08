@@ -8,21 +8,24 @@ class Shape {
 };
 
 class Circle : public Shape {
+    private:
+        int radiant;
     public:
         Circle(double radiant) : radiant(radiant) { }
-        double area() override {
-            return 2*3.14*this->radiant*this->radiant;
+        double area() const override {
+            return 3.14 * radiant * radiant;
         }
-    
-    private:
-        double radiant;    
+      
 };
 
 class Rectangle : public Shape {
+    private:
+        int lenght;
+        int width;
     public:
         Rectangle(double width, double lenght) : lenght(lenght), width(width) { }
-        double area() override {
-            return this->width * this->lenght;
+        double area() const override {
+            return width * lenght;
         }    
 };
 
