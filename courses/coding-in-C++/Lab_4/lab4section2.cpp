@@ -8,7 +8,6 @@ class Shape {
 };
 
 class Circle : public Shape {
-<<<<<<< HEAD
     private:
         int radiant;
     public:
@@ -27,23 +26,6 @@ class Rectangle : public Shape {
         Rectangle(double width, double lenght) : lenght(lenght), width(width) { }
         double area() const override {
             return width * lenght;
-=======
-    public:
-        Circle(double radiant) : radiant(radiant) { }
-        double area() override {
-            return 2*3.14*this->radiant*this->radiant;
-        }
-    
-    private:
-        double radiant;    
-};
-
-class Rectangle : public Shape {
-    public:
-        Rectangle(double width, double lenght) : lenght(lenght), width(width) { }
-        double area() override {
-            return this->width * this->lenght;
->>>>>>> d48d869478390013f15f5d237300eb47406bc48a
         }    
 };
 
