@@ -5,11 +5,7 @@
 constexpr int MIN_PROFESSIONAL_AGE = 16;
 constexpr int DEFAULT_TRAINING_INTENSITY = 70;
 
-Player::Player(const std::string &name, int age)
-    : name(name),
-      age(age)
-{
-}
+Player::Player(const std::string &name, int age): name(name), age(age) { }
 
 std::string Player::get_name() const
 {
