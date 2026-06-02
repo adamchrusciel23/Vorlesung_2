@@ -40,7 +40,7 @@ private:
 public:
     EmergencyBrakeSystem(double critical_distance);
 
-    void evaluate(Vehicle &vehicle, const DistanceSensor &front_sensor) const;
+    void evaluate(Vehicle &vehicle, const DistanceSensor &front_sensor);
 };
 
 class LaneKeepingAssist
