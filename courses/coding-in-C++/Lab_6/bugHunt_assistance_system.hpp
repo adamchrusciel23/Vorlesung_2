@@ -3,8 +3,19 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "bugHunt_vehicle.hpp"
+
+class AssistanceFeature 
+{
+    public:
+        virtual void evaluate(Vehicle &vehicle) = 0;
+
+        virtual void print_name() const = 0;
+
+        virtual ~AssistanceFeature() = default;
+};
 
 class DistanceSensor
 {
@@ -32,18 +43,26 @@ public:
     void print_info() const;
 };
 
-class EmergencyBrakeSystem
+class EmergencyBrakeSystem  : public AssistanceFeature
 {
 private:
     double critical_distance_m;
+    DistanceSensor* front_sensor;
 
 public:
-    EmergencyBrakeSystem(double critical_distance);
+    EmergencyBrakeSystem(double critical_distance, DistanceSensor* front_sensor);
 
-    void evaluate(Vehicle &vehicle, const DistanceSensor &front_sensor);
+    void evaluate(Vehicle &vehicle) override;
+
+    void print_name() const override {
+        std::cout << "EmergencyBrakeSystem" << std::endl;
+        return;
+    }
+
+
 };
 
-class LaneKeepingAssist
+class LaneKeepingAssist : public AssistanceFeature
 {
 private:
     double max_allowed_offset_m;
@@ -52,33 +71,44 @@ private:
 public:
     LaneKeepingAssist(double max_offset, double correction);
 
-    void evaluate(Vehicle &vehicle) const;
+    void evaluate(Vehicle &vehicle) override;
+
+    void print_name() const override {
+        std::cout << "LaneKeepingAssist" << std::endl;
+        return;
+    }
 };
 
-class AdaptiveCruiseControl
+class AdaptiveCruiseControl : public AssistanceFeature
 {
 private:
     double target_speed_kmh;
     double minimum_distance_m;
+    DistanceSensor* front_sensor;
 
 public:
     AdaptiveCruiseControl(double target_speed,
-                          double minimum_distance);
+                          double minimum_distance,
+                          DistanceSensor* sensor);
 
-    void evaluate(Vehicle &vehicle,
-                  const DistanceSensor &front_sensor) const;
+    void evaluate(Vehicle &vehicle) override;
+
+    void print_name() const override {
+        std::cout << "AdaptiveCruiseControl" << std::endl;
+        return;
+    }
 };
 
 class ParkingAssistant
 {
 private:
-    std::vector<DistanceSensor *> sensors;
+    std::vector<std::unique_ptr<DistanceSensor>> sensors;
     double warning_distance_m;
 
 public:
     ParkingAssistant(double warning_distance);
 
-    void add_sensor(DistanceSensor *sensor);
+    void add_sensor(std::unique_ptr<DistanceSensor> sensor);
     void print_warnings() const;
 };
 

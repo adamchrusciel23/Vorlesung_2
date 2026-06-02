@@ -1,5 +1,5 @@
 #include "bugHunt_vehicle.hpp"
-#define MAX_AMOUNT_KMH 30
+#define MAX_AMOUNT_KMH 55
 
 Vehicle::Vehicle(const std::string &vehicle_model)
     : model(vehicle_model),

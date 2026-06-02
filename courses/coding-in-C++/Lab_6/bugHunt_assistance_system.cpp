@@ -60,20 +60,20 @@ void DistanceSensor::print_info() const
     std::cout << "Active: " << std::boolalpha << active << "\n\n";
 }
 
-EmergencyBrakeSystem::EmergencyBrakeSystem(double critical_distance)
-    : critical_distance_m(critical_distance)
+EmergencyBrakeSystem::EmergencyBrakeSystem(double critical_distance, DistanceSensor* sensor_ptr)
+    : critical_distance_m(critical_distance), front_sensor(sensor_ptr) // front_sensor muss als DistanceSensor* in der .hpp stehen
 {
 }
 
-void EmergencyBrakeSystem::evaluate(Vehicle &vehicle,
-                                    const DistanceSensor &front_sensor)
+void EmergencyBrakeSystem::evaluate(Vehicle &vehicle)
 {
-    if (!front_sensor.is_active())
+    // Da front_sensor jetzt ein Zeiger ist, nutzen wir -> statt .
+    if (front_sensor == nullptr || !front_sensor->is_active())
     {
         return;
     }
 
-    if (front_sensor.get_distance() < critical_distance_m)
+    if (front_sensor->get_distance() < critical_distance_m)
     {
         std::cout << "[EmergencyBrakeSystem] Emergency braking triggered.\n";
         vehicle.brake(30.0);
@@ -87,7 +87,7 @@ LaneKeepingAssist::LaneKeepingAssist(double max_offset,
 {
 }
 
-void LaneKeepingAssist::evaluate(Vehicle &vehicle) const
+void LaneKeepingAssist::evaluate(Vehicle &vehicle)
 {
     double offset = vehicle.get_lane_offset();
 
@@ -104,21 +104,22 @@ void LaneKeepingAssist::evaluate(Vehicle &vehicle) const
 }
 
 AdaptiveCruiseControl::AdaptiveCruiseControl(double target_speed,
-                                             double minimum_distance)
+                                             double minimum_distance,
+                                             DistanceSensor* sensor)
     : target_speed_kmh(target_speed),
-      minimum_distance_m(minimum_distance)
+      minimum_distance_m(minimum_distance),
+      front_sensor(sensor)
 {
 }
 
-void AdaptiveCruiseControl::evaluate(Vehicle &vehicle,
-                                     const DistanceSensor &front_sensor) const
+void AdaptiveCruiseControl::evaluate(Vehicle &vehicle)
 {
-    if (!front_sensor.is_active())
+    if (!front_sensor->is_active())
     {
         return;
     }
 
-    if (front_sensor.get_distance() < minimum_distance_m)
+    if (front_sensor->get_distance() < minimum_distance_m)
     {
         std::cout << "[AdaptiveCruiseControl] Vehicle ahead is close. Brake.\n";
         vehicle.brake(5.0);
@@ -140,14 +141,14 @@ ParkingAssistant::ParkingAssistant(double warning_distance)
 {
 }
 
-void ParkingAssistant::add_sensor(DistanceSensor *sensor)
+void ParkingAssistant::add_sensor(std::unique_ptr<DistanceSensor> sensor)
 {
-    sensors.push_back(sensor);
+    sensors.push_back(std::move(sensor));
 }
 
 void ParkingAssistant::print_warnings() const
 {
-    for (DistanceSensor *sensor : sensors)
+    for (const auto &sensor : sensors)
     {
         if (sensor != nullptr &&
             sensor->is_active() &&
