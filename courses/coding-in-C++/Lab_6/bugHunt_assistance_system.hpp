@@ -1,7 +1,6 @@
 #ifndef ASSISTANCE_SYSTEM_HPP
 #define ASSISTANCE_SYSTEM_HPP
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -12,9 +11,9 @@ class DistanceSensor
 private:
     std::string position;
     bool active;
+    double measured_distance_m;
 
 public:
-    double measured_distance_m;
 
     DistanceSensor(const std::string &sensor_position,
                    double initial_distance_m);
