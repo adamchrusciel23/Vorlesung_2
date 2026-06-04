@@ -39,40 +39,94 @@ T smallest(const std::vector<T> nums) {
 }
 
 template<typename T, typename U>
-void print_report(const std::string& label1, const T value1, const std::string& label2, const U value2) {
+void print_label(const std::string& label1, const T value1, const std::string& label2, const U value2) {
     std::cout << label1 << ": " << value1 << " | " << label2 << ": " << value2 << std::endl;
 }
 
-int main() {
-    std::vector<int> ganzzahl = {42, 17, 42, 5, 99, 17, 63, 12};
-    std::vector<int> ganzzahl2 = {7, -1, 13, -1, 21, 21, 8, -1, 8};
-
-    for(const auto& zahl : ganzzahl) {
-        std::cout << zahl << " ";
+template<typename T>
+T average(const std::vector<T> nums) {
+    T sum = 0;
+    for(int i = 0; i < nums.size(); i++) {
+        sum += nums[i];
     }
-    std::cout << std::endl;
+    return double((sum / nums.size()));
+}
 
-    std::sort(ganzzahl.begin(), ganzzahl.end());
-    print(ganzzahl);
-
-    bool gefunden = false;
-    for(const auto& zahl : ganzzahl) {
-        if(zahl == 63) {
-            std::cout << zahl << std::endl;
-            gefunden =  true;
+template<>
+bool average<bool>(const std::vector<bool> nums) {
+    float count = 0;
+    for (int i = 0; i< nums.size(); i++) {
+        if(nums[i]) {
+            count++;
         }
     }
-    if(!gefunden) {
-        std::cout << "nicht gefunden" << std::endl;
+    if (count > float((nums.size() / 2 ))) {
+        return true;
     }
-
-    print(ganzzahl2);
-    std::replace(ganzzahl2.begin(), ganzzahl2.end(), -1, 0);
-    int anzahl8 = std::count(ganzzahl2.begin(), ganzzahl2.end(), 8);
-    print(ganzzahl2);
-    std::cout << anzahl8 << "\n";
-
-    for(std::vector<int>::iterator it = ganzzahl.begin(); it != ganzzahl.end(); ++it){
-        std::cout << *it << std::endl;
+    else {
+        return false;
     }
+}
+
+template<typename T>
+T sum(const std::vector<T> nums) {
+    T sum = 0;
+    for(int i = 0; i < nums.size(); i++) {
+        sum += nums[i];
+    }
+    return sum;
+}
+
+template<typename T>
+T max(const std::vector<T> nums) {
+    T max = nums[0];
+    for (int i = 0; i < nums.size(); i++) {
+        if(max < nums[i]) {
+            max = nums[i];
+        }
+    }
+    return max;
+}
+
+template<typename T>
+void print_report(const std::vector<T> nums) {
+    std::cout << "------------" << "\n";
+    std::cout << "RAW DATA: ";
+    for (int i = 0; i < nums.size(); i++) {
+        std::cout << nums[i] << " ";
+    }
+    std::cout << "\n";
+    std::cout << "SUM: " << sum(nums) << "\n";
+    std::cout << "MAX: " << max(nums) << "\n";
+    std::cout << "AVERAGE: " << average(nums) << "\n";
+}
+
+template<>
+void print_report<bool>(const std::vector<bool> nums) {
+    std::cout << "------------" << "\n";
+    std::cout << "RAW DATA: ";
+    for (int i = 0; i < nums.size(); i++) {
+        std::cout << nums[i] << " ";
+    }
+    std::cout << "\n";
+    if(average(nums)) {
+        std::cout << "Motor was active for most of the test run" << "\n";
+    }
+    else {
+        std::cout << "Motor was inactive for most of the test run" << "\n";
+    }
+}
+
+int main() {
+    std::vector<int> temperature = {23, 24, 26, 29, 31, 30, 28};
+    std::vector<double> voltage = {12.6, 12.5, 12.3, 11.9, 11.5, 11.2, 11.1};
+    std::vector<double> vibration = {0.02, 0.05, 0.12, 0.45, 0.88, 0.32, 0.08};
+    std::vector<bool> motor_active = {false, true, true, true, true, true, false};
+    std::vector<bool> gps_lock = {false, false, true, true, true, true, true};
+
+
+    print_report(temperature);
+    print_report(voltage);
+    print_report(vibration);
+    print_report(motor_active);
 }
