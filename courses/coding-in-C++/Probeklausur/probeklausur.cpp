@@ -31,9 +31,15 @@ void Combustion::printInfo() const {
                 << "\nType            " << type 
                 << "\nBrand           " << brand
                 << "\nConsumption     " << consumption
-                << "\nAvailable       " << available
-                //<< "\nNeeded_licence  " << needed_licence
-                << "\nAssigned Driver " << driver << "\n\n";
+                << "\nAvailable       " << available;
+                
+    // --- HIER IST DIE ANPASSUNG FÜR DEN VECTOR ---
+    std::cout   << "\nNeeded Licence  ";
+    for (const std::string& licence : needed_licence) {
+        std::cout << licence << ", ";
+    }
+
+    std::cout   << "\nAssigned Driver " << driver << "\n\n";
 }
 
 void Electric::printInfo() const {
